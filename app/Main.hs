@@ -1,30 +1,32 @@
+{-# LANGUAGE LambdaCase     #-}
 {-# LANGUAGE NamedFieldPuns #-}
-{-# LANGUAGE LambdaCase #-}
 module Main where
 
-import System.IO
-import System.Environment
-import System.Exit
-import Data.Foldable
-import Text.Printf
-import Types
+import           Data.Foldable
+import qualified Data.HashMap.Strict as M
+import qualified Data.HashTable      as H
+import           System.Environment
+import           System.Exit
+import           System.IO
+import           Text.Printf
+import           Types
 
-import Stupid
-import Simple
-import SimpleFold
-import SimpleBSFold
-import InlinedBSFold
-import MonoidBSFold
-import InlinedMonoidBSFold
-import Lazy
-import LazyUTFAgnostic
-import Strict
-import Parallel
-import Streaming
-import StreamingUTF
-import FileSplit
-import FileSplitUTF
-import HandleSplitUTF
+import           FileSplit
+import           FileSplitUTF
+import           HandleSplitUTF
+import           InlinedBSFold
+import           InlinedMonoidBSFold
+import           Lazy
+import           LazyUTFAgnostic
+import           MonoidBSFold
+import           Parallel
+import           Simple
+import           SimpleBSFold
+import           SimpleFold
+import           Streaming
+import           StreamingUTF
+import           Strict
+import           Stupid
 
 printResult (name, Counts{charCount, wordCount, lineCount}) = printf "%d %d %d %s\n" lineCount (getFlux wordCount) charCount name
 
@@ -47,5 +49,14 @@ main = do
         ("streaming-utf": filenames) -> streamingUTF filenames
         ("split": filenames) -> filesplit filenames
         ("split-utf": filenames) -> filesplitUTF filenames
+        ("hm": filename:_) -> do
+          s <- hm filename
+          mapM_ print (M.toList s)
+          return []
+        ("ht": filename : _) -> do
+          s <- ht filename
+          kv <- H.readAssocsIO s
+          mapM_ print kv
+          return []
         _ -> hPutStrLn stderr "usage: <simple|lazy> [files...]" >> exitFailure
     traverse_ printResult results

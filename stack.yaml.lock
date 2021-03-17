@@ -5,9 +5,6 @@
 
 packages:
 - completed:
-    cabal-file:
-      size: 30131
-      sha256: 650bc2a3ea114d32b4cbe321d002d89de08d508692cf36092386953790e27ecc
     name: streamly
     version: 0.6.1
     git: https://github.com/composewell/streamly
@@ -25,6 +22,13 @@ packages:
       sha256: a294760bf52590c0998b139993d53169aa4a6f031f8d2e130c6d1742e82e0c71
   original:
     hackage: hedgehog-classes-0.2.4@sha256:f38ce9900e03e45108cb0f27860b8bf3671e0261d5e2197b4fa1bc27acb77df7,5355
+- completed:
+    hackage: concurrent-hashtable-0.1.8@sha256:c9ddedc2904e81655e9d50736d3e038239536980833358fc87f576903c120f55,2648
+    pantry-tree:
+      size: 510
+      sha256: 5b51d7f76c644ac72fd942fb63846428362cf64064156aa197f9f2fdcf038100
+  original:
+    hackage: concurrent-hashtable-0.1.8@sha256:c9ddedc2904e81655e9d50736d3e038239536980833358fc87f576903c120f55,2648
 snapshots:
 - completed:
     size: 523448
